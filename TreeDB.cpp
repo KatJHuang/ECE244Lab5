@@ -40,7 +40,7 @@ DBentry* TreeDB::findHelper(string name, TreeNode* node){
         return findHelper (name, node->getLeft());
     }
     if (node->getEntry()->getName() < name){
-        //recursion through left tree
+        //recursion through right tree
         return findHelper (name, node->getRight());
     }
     return NULL;
@@ -57,7 +57,7 @@ bool TreeDB::insert(DBentry* newEntry){
 bool TreeDB::insertHelper(DBentry* entry, TreeNode *node){
     
 //    cout << "insert: goint down" << endl;
-    cout << *entry ;
+//    cout << *entry ;
     
     if (entry->getName() == node->getEntry()->getName()){
         delete entry;
@@ -107,20 +107,22 @@ TreeNode* TreeDB::removeHelper(string name, TreeNode* node){
         return node;
     }
     //when it gets to this point, name is matched with an existing entry
+    
+    //there's no right subtree
+    //go check my left subtree and find the biggest in there
+    if (node->getLeft() != NULL){
+        node->setEntry(findMax(node->getLeft()));
+        node->setLeft(removeHelper(node->getEntry()->getName(), node->getLeft()));
+        return node;
+    }
+    
     //now find my replacement from right subtree
     if (node->getRight() != NULL){
-        node->getEntry()->setName(findMin(node->getRight()));
+        node->setEntry(findMin(node->getRight()));
         //steal the identity of that poor leaf node who will be mercilessly killed 
         //after it's exploited
         node->setRight(removeHelper(node->getEntry()->getName(), node->getRight()));
         //now find the residence of that node, and stand at its door
-        return node;
-    }
-    //there's no right subtree
-    //go check my left subtree and find the biggest in there
-    if (node->getLeft() != NULL){
-        node->getEntry()->setName(findMax(node->getLeft()));
-        node->setLeft(removeHelper(node->getEntry()->getName(), node->getLeft()));
         return node;
     }
     
@@ -131,15 +133,15 @@ TreeNode* TreeDB::removeHelper(string name, TreeNode* node){
     //bye
 }
 
-string TreeDB::findMax(TreeNode* node) const{
+DBentry* TreeDB::findMax(TreeNode* node) const{
     if (node->getRight() == NULL)
-        return node->getEntry()->getName();
+        return node->getEntry();
     return findMax(node->getRight());
 }
 
-string TreeDB::findMin(TreeNode* node) const{
+DBentry* TreeDB::findMin(TreeNode* node) const{
     if (node->getLeft() == NULL)
-        return node->getEntry()->getName();
+        return node->getEntry();
     return findMin(node->getLeft());
 }
 
@@ -159,7 +161,7 @@ void TreeDB::printHelper(TreeNode* node) const{
 void TreeDB::countActive() const{
     int num;
     num = countActiveHelper(root);
-    cout << "count active: " << num << endl;    
+    cout << num << endl;    
 }
 
 int TreeDB::countActiveHelper(TreeNode* node) const{
@@ -188,21 +190,18 @@ void TreeDB::printProbes(){
 void TreeDB::removeAll(){
     if (root != NULL)
         removeAllHelper(root);
+    cout << "Success" << endl;
+    root = NULL;
 }
 
 void TreeDB::removeAllHelper(TreeNode* node){
-    //stopping condition 
-    cout << "travsering tree Node at: ";
-    cout << *(node->getEntry());
-    cout << "current addr of node = " << node << endl;
-    if (node == NULL){
+//    //stopping condition 
+//    cout << "travsering tree Node at: ";
+//    cout << *(node->getEntry());
+//    cout << "current addr of node = " << node << endl;
+    if (node == NULL)
         return;
-    }
     removeAllHelper(node->getLeft());
-    removeAllHelper(node->getRight());
-    cout << "ready for delete - ";
-    cout << *(node->getEntry());
-    cout << "RemoveAll: addr of node b4 removal = " << node << endl;
-    //delete node;
-    cout << "RemoveAll: addr of node after removal = " << node << endl;
+    removeAllHelper(node->getRight()); 
+    delete node;
 }

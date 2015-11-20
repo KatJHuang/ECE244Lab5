@@ -16,7 +16,7 @@ int word_count;
 TreeDB db;
 
 void insert(string&);
-void find(string&);
+void find(string&, bool);
 void remove(string&);
 void updateStatus(string&);
 
@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
             insert(input_line);
         }
         else if (token == "find"){
-            find(input_line);
+            find(input_line, true);
         }
         else if (token == "remove"){
             remove(input_line);
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
             db.print();
         }
         else if (token == "printprobes"){
-            find(input_line);
+            find(input_line, false);
             db.printProbes();
         }
         else if (token == "removeall"){
@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
             db.countActive();
         }
         else if (token == "updatestatus"){
-            
+            updateStatus(input_line);
         }
         else
             cout << "Error: Invalid command" << endl; 
@@ -154,10 +154,10 @@ void insert(string& input_line_){
         cout << "Success" << endl;
     else
         cout << "Error: entry already exists" << endl;
-    db.print();
+//    db.print();
 }
 
-void find(string& input_line_){
+void find(string& input_line_, bool print_result){
     word_count = countWord(input_line_);
     string name;
     
@@ -174,10 +174,14 @@ void find(string& input_line_){
     name = token;
     
     DBentry *matching_entry = db.find(name);
-    if (matching_entry == NULL)
+    if (matching_entry == NULL){
         cout << "Error: entry does not exist" << endl;
-    else
+    }
+    else{
+        if (!print_result)
+            return;
         cout << *matching_entry;
+    }
 }
 
 void updateStatus(string& input_line_){
@@ -207,7 +211,8 @@ void updateStatus(string& input_line_){
         cout << "Error: entry does not exist" << endl;
     else{
         matching_entry->setActive(status);
-        cout << *matching_entry;
+        cout << "Success" << endl;
+//        cout << *matching_entry;
     }
 }
 

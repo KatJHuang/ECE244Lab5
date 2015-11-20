@@ -18,7 +18,7 @@ DBentry::DBentry(const DBentry& orig) {
 }
 
 DBentry::~DBentry() {
-    cout << "delete an entry" << endl;
+//    cout << "delete an entry" << endl;
 }
 
 void DBentry::setActive(bool active_){
@@ -47,6 +47,7 @@ string DBentry::getName() const{
 
 ostream& operator << (ostream& out, const DBentry& rhs){
     string active_ = rhs.active ? "active" : "inactive";
-    out << rhs.name << " : " << rhs.IPaddr << " : " << active_ << endl;
+    
+    out << rhs.name << " : " << rhs.IPaddr<< " : " << active_ << endl;
     return out;
 }

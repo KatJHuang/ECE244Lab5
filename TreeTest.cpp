@@ -21,6 +21,10 @@
 //    db.insert(dbe);
 //    dbe = new DBentry ("www.google.ca", 7777, true);
 //    db.insert(dbe);
+//    dbe = new DBentry ("www.utoronto.ca", 7777, true);
+//    db.insert(dbe);
+//    dbe = new DBentry ("www.loo.ca", 7777, true);
+//    db.insert(dbe);
 //    dbe = new DBentry ("www.ms.ca", 1318, false);
 //    db.insert(dbe);
 //    dbe = new DBentry ("www.apple.ca", 1111, true);

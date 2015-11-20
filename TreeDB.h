@@ -24,8 +24,8 @@ public:
     
     void clear();
     void printProbes();
-    string findMin(TreeNode* node) const;
-    string findMax(TreeNode* node) const;
+    DBentry* findMin(TreeNode* node) const;
+    DBentry* findMax(TreeNode* node) const;
     void print() const;
     void printHelper(TreeNode* node) const;
     void countActive () const;

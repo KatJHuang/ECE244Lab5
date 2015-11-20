@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-MacOSX
-CND_DLIB_EXT=dylib
+CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -37,10 +37,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/DBentry.o \
 	${OBJECTDIR}/DBentry_test.o \
+	${OBJECTDIR}/Main.o \
 	${OBJECTDIR}/TreeDB.o \
 	${OBJECTDIR}/TreeNode.o \
-	${OBJECTDIR}/TreeTest.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/TreeTest.o
 
 
 # C Compiler Flags
@@ -77,6 +77,11 @@ ${OBJECTDIR}/DBentry_test.o: DBentry_test.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DBentry_test.o DBentry_test.cpp
 
+${OBJECTDIR}/Main.o: Main.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Main.o Main.cpp
+
 ${OBJECTDIR}/TreeDB.o: TreeDB.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -91,11 +96,6 @@ ${OBJECTDIR}/TreeTest.o: TreeTest.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TreeTest.o TreeTest.cpp
-
-${OBJECTDIR}/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

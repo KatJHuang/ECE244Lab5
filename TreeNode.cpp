@@ -17,10 +17,12 @@ TreeNode::TreeNode(const TreeNode& orig) {
 }
 
 TreeNode::~TreeNode() {
-    cout << *entry_ptr;
+//    cout << *entry_ptr;
     delete entry_ptr;
-    cout << "deleting node" << endl;
-    cout << *entry_ptr;
+    left = NULL;
+    right = NULL;
+//    cout << "deleting node" << endl;
+//    cout << *entry_ptr;
 }
 
 //void setLeft (TreeNode *left_);
@@ -39,7 +41,9 @@ void TreeNode::setRight(TreeNode* right_){
 }
 
 void TreeNode::setEntry(DBentry* entry_){
-    entry_ptr = entry_;
+    entry_ptr->setName(entry_->getName());
+    entry_ptr->setIPaddr(entry_->getIPaddr());
+    entry_ptr->setActive(entry_->getActive());
 }
 
 TreeNode* TreeNode::getLeft() const{
