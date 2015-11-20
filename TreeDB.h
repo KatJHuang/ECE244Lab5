@@ -16,22 +16,16 @@ public:
     virtual ~TreeDB();
     //delete all entries in the tree
     DBentry* find (string name); /////
-    DBentry* findHelper (string name, TreeNode *node); /////
     void remove (string name); 
-    TreeNode* removeHelper (string name, TreeNode *node); 
     bool insert(DBentry* newEntry); /////
-    bool insertHelper(DBentry *entry, TreeNode *node); /////
     
     void clear();
     void printProbes();
     DBentry* findMin(TreeNode* node) const;
     DBentry* findMax(TreeNode* node) const;
     void print() const;
-    void printHelper(TreeNode* node) const;
     void countActive () const;
-    int countActiveHelper (TreeNode* node) const;
     void removeAll();
-    void removeAllHelper(TreeNode* node);
     
 //    friend ostream& operator << (ostream& out, TreeNode* rhs);
     //prints out the entire tree in ascending order
@@ -39,7 +33,13 @@ public:
 private:
     TreeNode *root;
     int probesCount;
-    int activeCount; 
+    int activeCount;
+    DBentry* findHelper (string name, TreeNode *node); /////
+    bool insertHelper(DBentry *entry, TreeNode *node); /////
+    void printHelper(TreeNode* node) const; 
+    TreeNode* removeHelper (string name, TreeNode *node); 
+    void removeAllHelper(TreeNode* node);
+    int countActiveHelper (TreeNode* node) const;
 };
 
 //ostream& operator << (ostream& out, TreeNode* rhs);
