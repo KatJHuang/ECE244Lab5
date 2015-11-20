@@ -27,8 +27,10 @@ DBentry* TreeDB::find(string name){
 
 DBentry* TreeDB::findHelper(string name, TreeNode* node){
     probesCount++;
-    if (node == NULL)
+    if (node == NULL){
+        probesCount = 0; // cannot find the node; set counter back to zero
         return NULL;
+    }
 //    cout << "find: addr of current node = " << node << endl;
 //    cout << "find: inside node = " << *(node->getEntry()) ;
     if (node->getEntry()->getName() == name)
@@ -90,8 +92,10 @@ void TreeDB::remove(string name){
 
 TreeNode* TreeDB::removeHelper(string name, TreeNode* node){
     //if node is null - end of the tree
-    if (node == NULL) 
+    if (node == NULL){ 
+        cout << "Error: entry does not exist" << endl;
         return NULL;
+    }
     if (name < node->getEntry()->getName()){
         //if you are less than me, go to my left 
         node->setLeft(removeHelper(name, node->getLeft()));
@@ -122,6 +126,7 @@ TreeNode* TreeDB::removeHelper(string name, TreeNode* node){
     
     delete node;
     //assassinate the leaf node
+    cout << "Success" << endl;
     return NULL;
     //bye
 }
@@ -139,7 +144,7 @@ string TreeDB::findMin(TreeNode* node) const{
 }
 
 void TreeDB::print() const{
-    cout << "going to print" << endl;
+//    cout << "going to print" << endl;
     printHelper (root);
 }
 
@@ -174,22 +179,30 @@ int TreeDB::countActiveHelper(TreeNode* node) const{
 }
 
 void TreeDB::printProbes(){
+    if (probesCount == 0)
+        return;
     cout << probesCount << endl;
     probesCount = 0;
 }
 
 void TreeDB::removeAll(){
     if (root != NULL)
-        removeHelper(root);
+        removeAllHelper(root);
 }
 
 void TreeDB::removeAllHelper(TreeNode* node){
     //stopping condition 
+    cout << "travsering tree Node at: ";
+    cout << *(node->getEntry());
+    cout << "current addr of node = " << node << endl;
     if (node == NULL){
         return;
     }
     removeAllHelper(node->getLeft());
     removeAllHelper(node->getRight());
-    delete node;
-    node = NULL;
+    cout << "ready for delete - ";
+    cout << *(node->getEntry());
+    cout << "RemoveAll: addr of node b4 removal = " << node << endl;
+    //delete node;
+    cout << "RemoveAll: addr of node after removal = " << node << endl;
 }

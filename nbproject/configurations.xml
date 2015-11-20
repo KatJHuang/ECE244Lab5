@@ -114,7 +114,7 @@
       </item>
       <item path="TreeTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
-<!--      <folder path="TestFiles/f1">
+      <folder path="TestFiles/f1">
         <cTool>
           <incDir>
             <pElem>.</pElem>
@@ -124,11 +124,11 @@
           <incDir>
             <pElem>.</pElem>
           </incDir>
-        </ccTool>
+        </ccTool><!--
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>-->
+        </linkerTool>-->
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
