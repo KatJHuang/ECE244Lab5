@@ -17,6 +17,9 @@ TreeNode::TreeNode(const TreeNode& orig) {
 }
 
 TreeNode::~TreeNode() {
+    cout << *entry_ptr;
+    delete entry_ptr;
+    cout << "deleting node" << endl;
 }
 
 //void setLeft (TreeNode *left_);

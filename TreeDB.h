@@ -30,6 +30,8 @@ public:
     void printHelper(TreeNode* node) const;
     void countActive () const;
     int countActiveHelper (TreeNode* node) const;
+    void removeAll();
+    void removeAllHelper(TreeNode* node);
     
 //    friend ostream& operator << (ostream& out, TreeNode* rhs);
     //prints out the entire tree in ascending order

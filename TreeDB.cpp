@@ -177,3 +177,19 @@ void TreeDB::printProbes(){
     cout << probesCount << endl;
     probesCount = 0;
 }
+
+void TreeDB::removeAll(){
+    if (root != NULL)
+        removeHelper(root);
+}
+
+void TreeDB::removeAllHelper(TreeNode* node){
+    //stopping condition 
+    if (node == NULL){
+        return;
+    }
+    removeAllHelper(node->getLeft());
+    removeAllHelper(node->getRight());
+    delete node;
+    node = NULL;
+}
